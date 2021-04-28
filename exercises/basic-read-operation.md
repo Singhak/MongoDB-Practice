@@ -1,11 +1,38 @@
 - [X] We will use tv-show.json data in all excercise
 
+
 #### Example 1. Count number of collection in the document
+count() returns the total of all documents, which means duplicate documents will be counted.
 ##### query
 ```db.movie.count()``` or ```db.movie.find().count()```
 ##### result
 ```240```
-#### Example 2. Find all collection where name is 'Arrow'
+
+#### Example 2. count all collection where 'Thriller' in genres
+##### query
+```db.movie.count({'genres':'Thriller'})```
+##### result
+```41```
+
+#### Example 3. count all collection where name is 'Arrow'
+##### query
+```db.movie.count({name:'Arrow'})```
+##### result
+```1```
+
+#### Example 4. count all collection where schedule day is 'Monday'
+##### query
+```db.movie.count({"schedule.days":'Monday'})```
+##### result
+```36```
+
+#### Example 5. count distict rating collection
+##### query
+```db.movie.distinct('rating').length```
+##### result
+```39```
+
+#### Example 6. Find all collection where name is 'Arrow'
 Let's chain the ```pretty()``` method to the ```find()``` method for a prettier print of the output where each new field is written on a new line.
 ##### query
 ```db.movie.find({name:'Arrow'}).pretty()```
@@ -72,7 +99,7 @@ Let's chain the ```pretty()``` method to the ```find()``` method for a prettier 
 }
 ```
 
-#### Example 2. Find all collection where name is 'Arrow'
+#### Example 7. Find all collection where genres is 'Drama'
 Let's chain the ```pretty()``` method to the ```find()``` method for a prettier print of the output where each new field is written on a new line.
 ##### query
 ```db.movie.find({genres:'Drama'}).pretty()```
@@ -139,7 +166,7 @@ Total result count will be ```153```. Here we are showing one result
         }
 }
 ```
-#### Example 2. Find all collection where schedule day is 'Monday'
+#### Example 8. Find all collection where schedule day is 'Monday'
 Let's chain the ```pretty()``` method to the ```find()``` method for a prettier print of the output where each new field is written on a new line.
 ##### query
 ```db.movie.find({schedule.days:'Monday'}).pretty()```
@@ -206,7 +233,7 @@ Total result count will be ```36```. Here we are showing one result
         }
 }
 ```
-#### Example 3. Find all collection whose genres is 'Thriller' and rating is 8
+#### Example 9. Find all collection whose genres is 'Thriller' and rating is 8
 Let's chain the ```pretty()``` method to the ```find()``` method for a prettier print of the output where each new field is written on a new line.
 ##### query
 ```db.movie.find({'rating.average':8, 'genres':'Thriller'}).pretty()```
@@ -269,7 +296,7 @@ Let's chain the ```pretty()``` method to the ```find()``` method for a prettier 
         }
 }
 ```
-#### Example 4. Find all collection where 'Thriller' in genres at 2nd position
+#### Example 10. Find all collection where 'Thriller' in genres at 2nd position
 Let's chain the ```pretty()``` method to the ```find()``` method for a prettier print of the output where each new field is written on a new line.
 ##### query
 ```db.movie.find({'genres.1':'Thriller'}).pretty()```
@@ -331,6 +358,80 @@ Total result count will be ```13```. Here we are showing one result
                 },
                 "previousepisode" : {
                         "href" : "http://api.tvmaze.com/episodes/154117"
+                }
+        }
+}
+```
+#### Example 11. Find all collection where there is only two genres 'Thriller' and 'Drama'
+Let's chain the ```pretty()``` method to the ```find()``` method for a prettier print of the output where each new field is written on a new line.
+##### query
+```db.movie.find({'genres':['Thriller', 'Drama']}).pretty()```
+##### result
+Total result count will be ```0```.
+Let change oreder of Drama and Thriller
+
+```db.movie.find({'genres':['Drama', 'Thriller']}).pretty()```
+
+result:
+
+Total result count will be ```4```.
+THis is because it do equality check in equality order is matter. There are the way to ignore the order of array element we will see in advance queries.
+
+```
+{
+
+        "_id" : ObjectId("608008a38ba139604add0885"),
+        "id" : 98,
+        "url" : "http://www.tvmaze.com/shows/98/scandal",
+        "name" : "Scandal",
+        "type" : "Scripted",
+        "language" : "English",
+        "genres" : [
+                "Drama",
+                "Thriller"
+        ],
+        "status" : "Ended",
+        "runtime" : 60,
+        "premiered" : "2012-04-05",
+        "officialSite" : "http://abc.go.com/shows/scandal",
+        "schedule" : {
+                "time" : "22:00",
+                "days" : [
+                        "Thursday"
+                ]
+        },
+        "rating" : {
+                "average" : 7.7
+        },
+        "weight" : 95,
+        "network" : {
+                "id" : 3,
+                "name" : "ABC",
+                "country" : {
+                        "name" : "United States",
+                        "code" : "US",
+                        "timezone" : "America/New_York"
+                }
+        },
+        "webChannel" : null,
+        "externals" : {
+                "tvrage" : 28398,
+                "thetvdb" : 248841,
+                "imdb" : "tt1837576"
+        },
+        "image" : {
+                "medium" : "http://static.tvmaze.com/uploads/images/medium_portrait/124/310268.jpg",
+                "original" : "http://static.tvmaze.com/uploads/images/original_untouched/124/310268.jpg"
+        },
+        "summary" : "<p>Everyone has secrets… and Olivia Pope has dedicated her life to protecting and defending the public images of the nation's elite by keeping those secrets under wraps. Pope's team are at the top of their game when it comes to getting the job done for their clients, but it becomes apparent that these \"gladiators in suits\", who specialize in fixing the lives of other people, have trouble fixing those closest at hand -- their own.</p>",
+
+        "updated" : 1535456926,
+        "_links" : {
+                "self" : {
+                        "href" : "http://api.tvmaze.com/shows/98"
+                },
+                "previousepisode" : {
+                        "href" : "http://api.tvmaze.com/episodes/1387071"
                 }
         }
 }
