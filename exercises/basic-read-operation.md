@@ -1,5 +1,23 @@
 - [X] We will use tv-show.json data in all excercise
+- query 1: Count number of collection in the document
+- query 2: count all collection where 'Thriller' in genres
+- query 3: count all collection where name is 'Arrow'
+- query 4: count all collection where schedule day is 'Monday'
+- query 5: count distict rating collection all collection where name is 'Arrow'
+- query 6: Find all collection where name is 'Arrow'
+- query 7: Find all collection where genres is 'Drama'
+- query 8: Find all collection where schedule day is 'Monday'
+- query 9: Find all collection whose genres is 'Thriller' and rating is 8
+- query 10: Find all collection where 'Thriller' in genres at 2nd position
+- query 11: Find all collection where there is only two genres 'Thriller' and 'Drama'
+- query 12: Find all collection where genres is only 'Drama' and runtime is '60'
+- query 13: Find all collection  with projection status and where status is 'Running' with projection only status
+- query 14: Find all collection  with projection network name and where network name is 'CBS'
+- query 15: Find all collection with projection only schedule and where schedule days is only 'Sunday'
+- query 16: Find all collection with projection network country name
 
+> Before seeing solution solve it yourself to evaluate yourself
+## Solution
 
 #### Example 1. Count number of collection in the document
 count() returns the total of all documents, which means duplicate documents will be counted.
@@ -506,7 +524,7 @@ By default, MongoDB returns all fields for all matching documents as seen in all
 
 Use ```<field name>: 1``` to include that field in the results document and/or use ```<field name>: 0``` to exclude that field. Note that the values ```1``` and ```0``` stand for inclusion and exclusion in the resulting document respectively.
 
-#### Example 13. Find all collection where status is 'Running'
+#### Example 13. Find all collection with projection status and where status is 'Running'
 ##### query
 ```db.movie.find({status:'Running'},{status:1})```
 ##### result
@@ -520,7 +538,7 @@ Total result count will be ```62```. Here we are showing few result
 ```
 > We want only status as projection but ```_id``` is also comming. So to exclude ```_id``` we need mention it explicitly in query
 
-#### Example 14. Find all collection where network name is 'CBS'
+#### Example 14. Find all collection with projection network name and where network name is 'CBS'
 ##### query
 ```db.movie.find({'network.name':'CBS'},{"network.name":1, _id:0})```
 ##### result
@@ -533,7 +551,7 @@ Total result count will be ```29```. Here we are showing few result
 { "network" : { "name" : "CBS" } }
 ```
 
-#### Example 15. Find all collection where schedule days is only 'Sunday'
+#### Example 15. Find all collection with projection schedule and where schedule days is only 'Sunday'
 ##### query
 ```db.movie.find({'schedule.days':['Sunday']},{"schedule":1, _id:0})```
 ##### result
@@ -543,4 +561,16 @@ Total result count will be ```62```. Here we are showing few result
 { "schedule" : { "time" : "21:00", "days" : [ "Sunday" ] } }
 { "schedule" : { "time" : "22:00", "days" : [ "Sunday" ] } }
 { "schedule" : { "time" : "21:00", "days" : [ "Sunday" ] } }
+```
+
+#### Example 16. Find all collection with projection network country name
+##### query
+```db.movie.find({},{"network.country.name":1, _id:0})```
+##### result
+Total result count will be ```240```. Here we are showing few result
+
+```
+{ "network" : { "country" : { "name" : "United States" } } }
+{ "network" : { "country" : { "name" : "United States" } } }
+{ "network" : { "country" : { "name" : "Canada" } } }
 ```
