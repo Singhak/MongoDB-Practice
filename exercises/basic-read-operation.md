@@ -15,6 +15,7 @@
 - query 14: Find all collection  with projection network name and where network name is 'CBS'
 - query 15: Find all collection with projection only schedule and where schedule days is only 'Sunday'
 - query 16: Find all collection with projection network country name
+- query 17: Find all collection with projection genres and where runtime is 60
 
 > Before seeing solution solve it yourself to evaluate yourself
 ## Solution
@@ -573,4 +574,16 @@ Total result count will be ```240```. Here we are showing few result
 { "network" : { "country" : { "name" : "United States" } } }
 { "network" : { "country" : { "name" : "United States" } } }
 { "network" : { "country" : { "name" : "Canada" } } }
+```
+
+#### Example 17. Find all collection with projection genres and where runtime is 60
+##### query
+```db.movie.find({runtime:60},{"genres":1, _id:0})```
+##### result
+Total result count will be ```170```. Here we are showing few result
+```
+{ "genres" : [ "Drama", "Action", "Science-Fiction" ] }
+{ "genres" : [ "Drama", "Action", "Crime" ] }
+{ "genres" : [ "Drama", "Horror", "Romance" ] }
+{ "genres" : [ "Drama", "Science-Fiction", "Thriller" ] }
 ```
